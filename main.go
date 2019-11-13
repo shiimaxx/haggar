@@ -22,6 +22,7 @@ var (
 	metrics       int
 	jitter        time.Duration
 	agents        int
+	datapoints    int
 	cacheConns    bool
 )
 
@@ -66,7 +67,7 @@ func (a *Agent) flush() error {
 
 	epoch := time.Now().Unix()
 	for _, name := range a.MetricNames {
-		err := carbonate(a.Connection, name, rand.Intn(1000), epoch)
+		err := carbonate(a.Connection, name, rand.Intn(1000), epoch, datapoints)
 		if err != nil {
 			a.Connection = nil
 			return err
@@ -96,6 +97,7 @@ func init() {
 	flag.IntVar(&metrics, "metrics", 10000, "number of metrics for each agent to hold")
 	flag.DurationVar(&jitter, "jitter", 10*time.Second, "max amount of jitter to introduce in between agent launches")
 	flag.IntVar(&agents, "agents", 100, "max number of agents to run concurrently")
+	flag.IntVar(&datapoints, "datapoints", 1, "number of datapoints each metrics")
 	flag.BoolVar(&cacheConns, "cache_connections", false, "if set, keep connections open between flushes (default: false)")
 }
 
