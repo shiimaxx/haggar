@@ -15,7 +15,7 @@ var (
 	carbon     string
 	prefix     string
 	metrics    int
-	agents     int
+	workers    int
 	tasks      int
 	datapoints int
 	cacheConns bool
@@ -82,7 +82,7 @@ func init() {
 	flag.StringVar(&carbon, "carbon", "localhost:2003", "address of carbon host")
 	flag.StringVar(&prefix, "prefix", "haggar", "prefix for metrics")
 	flag.IntVar(&metrics, "metrics", 10000, "number of metrics for each agent to hold")
-	flag.IntVar(&agents, "agents", 100, "max number of agents to run concurrently")
+	flag.IntVar(&workers, "workers", 100, "max number of workers to run concurrently")
 	flag.IntVar(&datapoints, "datapoints", 1, "number of datapoints each metrics")
 	flag.IntVar(&tasks, "tasks", 100, "number of tasks that will pass to woker")
 	flag.BoolVar(&cacheConns, "cache_connections", false, "if set, keep connections open between flushes (default: false)")
@@ -93,9 +93,9 @@ func main() {
 
 	log.Printf("master: pid %d\n", os.Getpid())
 
-	q := make(chan int, agents)
+	q := make(chan int, workers)
 	var wg sync.WaitGroup
-	for i := 0; i < agents; i++ {
+	for i := 0; i < workers; i++ {
 		wg.Add(1)
 		go launchAgent(&wg, q, i, metrics, carbon, prefix)
 	}
