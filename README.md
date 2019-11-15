@@ -23,14 +23,13 @@ $ go get github.com/gorsuch/haggar
 ```sh
 $ haggar -h
 Usage of haggar:
-  -agents=100: max number of agents to run concurrently
+  -cache_conections: if set, keep connections open between flushes
   -carbon="localhost:2003": address of carbon host
   -datapoints=1: number of datapoints each metrics
-  -flush-interval=10s: how often to flush metrics
-  -jitter=10s: max amount of jitter to introduce in between agent launches
   -metrics=10000: number of metrics for each agent to hold
   -prefix="haggar": prefix for metrics
-  -spawn-interval=10s: how often to gen new agents
+  -tasks=100: number of tasks that will pass to woker
+  -workers=100: max number of workers to run concurrently
 ```
 
 ## Credits
