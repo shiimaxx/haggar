@@ -15,7 +15,7 @@ It behaves like a swarm of [collectd](https://collectd.org/) agents firing a fix
 ## Installation
 
 ```sh
-$ go get github.com/gorsuch/haggar
+$ go get github.com/shiimaxx/haggar
 ```
 
 ## Command-line flags
