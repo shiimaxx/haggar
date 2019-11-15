@@ -18,7 +18,7 @@ func ExampleGenMetricNames() {
 
 func ExampleCarbonate() {
 	epoch := int64(1407850160)
-	carbonate(os.Stdout, "test.metric.1", 100, epoch)
+	carbonate(os.Stdout, "test.metric.1", 100, epoch, 1)
 	// Output:
 	// test.metric.1 100 1407850160
 }
